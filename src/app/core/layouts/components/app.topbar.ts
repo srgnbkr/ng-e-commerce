@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
-import { LayoutService } from '../services/layout.service';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+import { CartStore } from '../../../features/carts/stores/cart.store';
 
 @Component({
   selector: 'app-topbar',
@@ -11,18 +12,28 @@ import { StyleClassModule } from 'primeng/styleclass';
     <p-menubar [model]="items">
       <ng-template #end>
         <div class="flex items-center gap-2">
-          <button  (click)="toggleTheme()">
-            <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
-          </button>
+          <p-button
+            [label]="
+              cartItemsCount() === 0
+                ? 'Sepetim'
+                : 'Sepetim(' + cartItemsCount() + ')'
+            "
+            [raised]="true"
+            severity="secondary"
+            icon="pi pi-shopping-cart"
+          />
         </div>
       </ng-template>
     </p-menubar>
   `,
   standalone: true,
-  imports: [Menubar,CommonModule, StyleClassModule],
+  imports: [Menubar, CommonModule, StyleClassModule, ButtonModule],
 })
 export class TopbarComponent implements OnInit {
   items: MenuItem[] | undefined;
+  cartStore = inject(CartStore);
+
+  cartItemsCount = computed(() => this.cartStore.totalItems());
 
   ngOnInit(): void {
     this.items = [
@@ -71,11 +82,5 @@ export class TopbarComponent implements OnInit {
         icon: 'pi pi-envelope',
       },
     ];
-  }
-
-  constructor(public layoutService: LayoutService) {}
-
-  toggleTheme() {
-    this.layoutService.setDarkTheme(!this.layoutService.isDarkTheme());
   }
 }
