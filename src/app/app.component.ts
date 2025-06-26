@@ -6,9 +6,10 @@ import { ProductService } from './features/products/services/product.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { FooterComponent } from './core/layouts/components/app.footer';
 
+
 @Component({
   selector: 'app-root',
-  imports: [TopbarComponent,FooterComponent, RouterModule, PaginatorModule],
+  imports: [TopbarComponent, RouterModule, PaginatorModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
