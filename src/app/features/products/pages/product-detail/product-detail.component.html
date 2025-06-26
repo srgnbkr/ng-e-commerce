@@ -1,0 +1,85 @@
+<div *ngIf="product() as productDetail; else loading">
+  <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow p-8 mt-8 flex flex-col md:flex-row gap-8">
+    <div class="flex-1 flex flex-col items-center">
+      <img [src]="selectedImage || productDetail.images[0]" [alt]="productDetail.title"
+        class="w-full max-w-xs h-72 object-cover rounded-xl mb-4 shadow" />
+      <div class="flex gap-2 mt-2">
+        <img *ngFor="let img of productDetail.images" [src]="img" [alt]="productDetail.title"
+          (click)="selectImage(img)"
+          [class.border-blue-500]="selectedImage === img"
+          class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-200 hover:border-blue-500 transition" />
+      </div>
+    </div>
+    <div class="flex-1 flex flex-col justify-between">
+      <div>
+        <h1 class="text-2xl font-bold mb-2">{{ productDetail.title }}</h1>
+        <span class="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-2 py-1 rounded mb-2">{{
+          productDetail.brand }}</span>
+        <p class="text-gray-600 text-base mb-4">
+          {{ productDetail.description }}
+        </p>
+        <div class="flex items-center gap-4 mb-4">
+          <span class="text-2xl font-bold text-green-600">₺{{ productDetail.price }}</span>
+          <span *ngIf="productDetail.discountPercentage" class="text-sm text-red-500 font-semibold">%{{
+            productDetail.discountPercentage }} indirim</span>
+          <span class="text-sm text-gray-400">Stok: {{ productDetail.stock }}</span>
+        </div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-yellow-500 text-lg">
+            <i class="pi pi-star-fill"></i>
+          </span>
+          <span class="font-semibold">{{ productDetail.rating }}</span>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span *ngFor="let tag of productDetail.tags" class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#{{
+            tag }}</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 mt-6">
+        <button appAddToCart [product]="productDetail"
+          class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow transition-colors text-lg flex items-center justify-center gap-2">
+          <i class="pi pi-shopping-cart"></i> Sepete Ekle
+        </button>
+        <div class="text-xs text-gray-400 mt-2">
+          Kargo: {{ productDetail.shippingInformation }}
+        </div>
+        <div class="text-xs text-gray-400">
+          Garanti: {{ productDetail.warrantyInformation }}
+        </div>
+        <div class="text-xs text-gray-400">
+          Minimum Sipariş: {{ productDetail.minimumOrderQuantity }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto mt-8 bg-white rounded-xl shadow p-6">
+    <h2 class="text-lg font-bold mb-4">Yorumlar</h2>
+    <div *ngIf="
+        productDetail.reviews && productDetail.reviews.length > 0;
+        else noReviews
+      ">
+      <div *ngFor="let review of productDetail.reviews"
+        class="border-b border-gray-100 pb-4 mb-4 last:mb-0 last:border-b-0">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-semibold text-gray-700">{{
+            review.reviewerName
+            }}</span>
+          <span class="text-xs text-gray-400">{{
+            review.date | date : "mediumDate"
+            }}</span>
+          <span class="text-yellow-500 text-sm"><i class="pi pi-star-fill"></i> {{ review.rating }}</span>
+        </div>
+        <div class="text-gray-600 text-sm">{{ review.comment }}</div>
+      </div>
+    </div>
+    <ng-template #noReviews>
+      <div class="text-gray-400 text-sm">Henüz yorum yok.</div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="flex justify-center items-center py-24">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+    <span class="ml-3 text-gray-600">Ürün yükleniyor...</span>
+  </div>
+</ng-template>
