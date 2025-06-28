@@ -1,0 +1,12 @@
+<aside class="w-64 bg-white border-r border-gray-200 p-6 hidden md:block">
+  <h2 class="text-lg font-bold mb-4">Kategoriler</h2>
+  <ul class="space-y-2 max-h-[calc(100vh-100px)] overflow-y-auto pr-2">
+    <li *ngFor="let category of categories">
+      <a
+        href="#"
+        class="block px-4 py-2 rounded-lg hover:bg-emerald-100 text-gray-700 font-medium transition"
+        >{{ category.name }}</a
+      >
+    </li>
+  </ul>
+</aside>
