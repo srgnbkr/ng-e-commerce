@@ -2,6 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
 
+## Tech Stack & Integrations
+
+- **DummyJson API**: Product, category, and cart data is fetched from the [DummyJson](https://dummyjson.com/) REST API.
+- **PrimeNG**: Modern, accessible Angular UI component library. Used for advanced UI elements and consistent design.
+- **Tailwind CSS**: Utility-first CSS framework for rapid, responsive, and customizable styling.
+- **NgRx SignalStore**: Modern, signal-based state management for Angular. Used for scalable, reactive, and maintainable application state (products, cart, etc). For more information, see the [NgRx SignalStore documentation](https://ngrx.io/guide/signalstore) and this [NgRx SignalStore Demo Repository](https://github.com/mahmut-gundogdu/ngrx-signal-store-demo).
+
 ## Development server
 
 To start a local development server, run:
