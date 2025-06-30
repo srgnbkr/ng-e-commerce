@@ -2,10 +2,10 @@
   class="border border-gray-200 rounded-2xl p-5 bg-white shadow flex flex-col h-[360px] w-full min-w-[240px] transition-transform hover:scale-105 hover:shadow-lg">
   <img [src]="product.thumbnail" [alt]="product.title" class="w-full h-36 object-contain rounded-xl mb-3 bg-white" />
   <h3 routerLink="product-detail/{{ product.id }}"
-    class="text-base font-semibold mb-2 line-clamp-2 min-h-[36px] cursor-pointer hover:text-blue-600 transition-colors">
+    class="text-base font-semibold  line-clamp-2 min-h-[36px] cursor-pointer hover:text-blue-600 transition-colors">
     {{ product.title }}
   </h3>
-  <span class="mb-3">{{ product.brand }}</span>
+  <span class="mt-2">{{ product.brand }}</span>
   <p class="text-gray-500 text-sm mb-3 line-clamp-2 min-h-[36px]">
     {{ product.description }}
   </p>

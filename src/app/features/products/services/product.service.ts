@@ -10,7 +10,7 @@ export class ProductService {
 
   // Signals for pagination
   skip = signal(0);
-  limit = signal(12);
+  limit = signal(8);
   //TODO : How to one products by productId?
   id = signal(1);
 
