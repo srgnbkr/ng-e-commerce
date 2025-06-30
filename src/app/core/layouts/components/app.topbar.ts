@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { CartStore } from '../../../features/carts/stores/cart.store';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -21,13 +22,14 @@ import { CartStore } from '../../../features/carts/stores/cart.store';
             [raised]="true"
             severity="secondary"
             icon="pi pi-shopping-cart"
+            routerLink="/cart"
           />
         </div>
       </ng-template>
     </p-menubar>
   `,
   standalone: true,
-  imports: [Menubar, CommonModule, StyleClassModule, ButtonModule],
+  imports: [Menubar, CommonModule, StyleClassModule, ButtonModule,RouterLink],
 })
 export class TopbarComponent implements OnInit {
   items: MenuItem[] | undefined;
@@ -40,10 +42,12 @@ export class TopbarComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-home',
+        routerLink: '/',
       },
       {
-        label: 'Features',
-        icon: 'pi pi-star',
+        label: 'Ürünler',
+        icon: 'pi pi-box',
+        routerLink: '/products',
       },
       {
         label: 'Projects',
