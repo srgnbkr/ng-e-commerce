@@ -1,0 +1,47 @@
+<div class="container mx-auto py-10 px-2 sm:px-6 max-w-full sm:max-w-5xl">
+  <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-emerald-600">Sepetim</h2>
+
+  <!-- Sepet boşsa -->
+  <ng-container *ngIf="isEmpty; else cartNotEmpty">
+    <div class="text-center py-16 sm:py-20 text-gray-400">
+      <svg class="mx-auto mb-4 sm:mb-6 w-16 h-16 sm:w-20 sm:h-20 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m13-9l2 9m-5 0a2 2 0 11-4 0m4 0H9"/></svg>
+      Sepetiniz boş.
+    </div>
+  </ng-container>
+
+  <ng-template #cartNotEmpty>
+    <div>
+      <ul class="divide-y divide-gray-200 bg-white dark:bg-gray-800 rounded-lg shadow">
+        <li *ngFor="let item of items;" class="flex flex-col sm:flex-row items-center py-4 sm:py-6 px-2 sm:px-4 gap-4 sm:gap-0">
+          <img [src]="item.product.thumbnail" alt="{{item.product.title}}" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded border mb-2 sm:mb-0 sm:mr-6" />
+          <div class="flex-1 min-w-0 w-full sm:w-auto text-center sm:text-left">
+            <div class="font-semibold text-base sm:text-lg text-gray-800 dark:text-gray-100 truncate">{{item.product.title}}</div>
+            <div class="text-sm sm:text-base text-gray-500 dark:text-gray-400">{{item.product.price | currency:'TRY':'symbol-narrow'}} x {{item.quantity}}</div>
+          </div>
+          <div class="flex items-center justify-center sm:justify-start space-x-2 mt-2 sm:mt-0">
+            <button (click)="decreaseQuantity(item)" class="px-3 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 text-lg">-</button>
+            <span class="w-8 text-center text-lg">{{item.quantity}}</span>
+            <button (click)="increaseQuantity(item)" class="px-3 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 text-lg">+</button>
+          </div>
+          <div class="w-full sm:w-32 text-right font-bold text-emerald-600 ml-0 sm:ml-6 text-base sm:text-lg mt-2 sm:mt-0">{{item.product.price * item.quantity | currency:'TRY':'symbol-narrow'}}</div>
+          <button (click)="removeFromCart(item)" class="ml-0 sm:ml-6 text-red-500 hover:text-red-700 mt-2 sm:mt-0" title="Ürünü kaldır">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Sepet Özeti -->
+      <div class="mt-8 sm:mt-10 p-4 sm:p-8 bg-gray-50 dark:bg-gray-900 rounded-lg shadow flex flex-col gap-3 sm:gap-4">
+        <div class="flex justify-between text-base sm:text-xl">
+          <span>Toplam Ürün:</span>
+          <span class="font-semibold">{{totalItems}}</span>
+        </div>
+        <div class="flex justify-between text-base sm:text-xl">
+          <span>Toplam Tutar:</span>
+          <span class="font-bold text-emerald-600">{{totalPrice | currency:'TRY':'symbol-narrow'}}</span>
+        </div>
+        <button class="mt-4 sm:mt-6 w-full py-3 sm:py-4 rounded bg-emerald-600 text-white font-bold text-base sm:text-lg hover:bg-emerald-700 transition">Satın Al</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
